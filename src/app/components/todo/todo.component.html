@@ -1,0 +1,15 @@
+<div class="card-item" [ngClass]="this.completed ? 'checked' : 'unchecked'">
+  <div class="todo-items">
+    <div class="d-flex">
+      <input type="checkbox" class="check-input" [id]="todoInput.id" [checked]="todoInput.completed"
+        (change)="onChange(todoInput.id)">
+      <label [for]="todoInput.id" class="check-label">{{todoInput.title}}</label>
+    </div>
+    <button class="btn" (click)="onDeleteTodoItem(todoInput.id)">
+      <svg>
+        <use href="../../../assets/icons.svg#icon-delete"></use>
+      </svg>
+    </button>
+
+  </div>
+</div>
