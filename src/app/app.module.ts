@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { AppTodoListComponent } from './components/todo-List/todo-list.component';
 import { AppTodoComponent } from './components/todo/todo.component';
 
