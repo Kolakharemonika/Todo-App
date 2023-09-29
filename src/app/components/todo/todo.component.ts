@@ -20,12 +20,13 @@ export class AppTodoComponent implements OnInit {
     this.completed = this.todoInput.completed;
   }
 
-  onChange(id: number) {
+  onChange() {
     this.completed = !this.completed;
-    this.completedTodo.emit({ id: id, completed: this.completed })
+    this.completedTodo.emit({ id: this.todoInput.id, completed: this.completed })
   }
-  onDeleteTodoItem(id: number) {
-    this.deleteTodoItem.emit(id)
+
+  onDeleteTodoItem() {
+    this.deleteTodoItem.emit(this.todoInput.id);
   }
 
   openModal() {

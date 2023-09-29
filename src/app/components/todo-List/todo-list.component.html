@@ -5,21 +5,23 @@
       <button class="btn-add" (click)="openModal()">Add Todo</button>
     </div>
   </div>
-  <div class="card" *ngIf="listperPage.length>0 && !loader">
-    <div class="list-group" *ngFor="let todo of listperPage">
+  <!-- list of todos -->
+  <div class="card" *ngIf="listOfTodoPerPage.length>0 && !loader">
+    <div class="list-group" *ngFor="let todo of listOfTodoPerPage">
       <app-todo [todoInput]="todo" (deleteTodoItem)="onDeleteTodoItem($event)"
         (completedTodo)="onCompletedTodo($event)"></app-todo>
     </div>
+    <div class="pagination">
+      <button class="button btn-prev" (click)="previousPage()" [disabled]="currentPage == 1">Previous</button>
+      <button class="button btn-next" (click)="nextPage()"
+        [disabled]="currentPage * itemsPerPage >= listOfTodos.length">Next</button>
+    </div>
   </div>
+
   <div class="loader" *ngIf="loader"></div>
-  <div class="pagination">
-    <button class="button btn-prev" (click)="previousPage()" [disabled]="currentPage == 1">Previous</button>
-    <button class="button btn-next" (click)="nextPage()"
-      [disabled]="currentPage * itemsPerPage >= listOfTodos.length">Next</button>
-  </div>
 </div>
 
-
+<!-- add todo -->
 <div class="modal-overlay" *ngIf="showModal">
   <div class="modal">
     <div class="modal-header">
@@ -34,9 +36,9 @@
     <div class="modal-body d-flex">
       <form>
         <input type="text" placeholder="Add title" name="title" [(ngModel)]="todoTitleValue"
-          (keyup.enter)="addTodoItem($event)">
+          (keyup.enter)="addTodoItem()">
       </form>
-      <button class="btn-add" (click)="addTodoItem($event)">Add </button>
+      <button class="btn-add" (click)="addTodoItem()">Add </button>
 
     </div>
   </div>

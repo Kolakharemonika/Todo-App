@@ -13,14 +13,14 @@ export class AppTodoListComponent implements OnInit {
   loader: boolean = false;
 
   listOfTodos: TodoLists[] = [];
-  listperPage: TodoLists[] = [];
+  listOfTodoPerPage: TodoLists[] = [];
   todoId: number = 1;
   todoTitleValue: string = '';
 
   // pagination
   itemsPerPage = 10; // Number of items to display per page
-  currentPage = 1; // Current page number
-  data: any[] = []; // Your data source
+  currentPage = 1;
+  data: any[] = [];
 
   constructor(private userService: UserService) { }
 
@@ -37,16 +37,19 @@ export class AppTodoListComponent implements OnInit {
       this.paginatedData();
       this.loader = false;
     }, (err) => {
+      this.loader = false;
+
       if (err.message) {
+        alert('OOPs! Something went wrong ')
         console.log('OOPs! Something went wrong ', err.message);
       }
-      this.loader = false;
     })
 
   }
 
   onDeleteTodoItem(id: any) {
     this.listOfTodos = this.listOfTodos.filter(todo => todo.id != id);
+    this.paginatedData();
   }
 
   onCompletedTodo(selectedTodo: any) {
@@ -56,8 +59,7 @@ export class AppTodoListComponent implements OnInit {
     });
   }
 
-  addTodoItem(e: Event) {
-    e.preventDefault();
+  addTodoItem() {
 
     if (this.todoTitleValue) {
       if (this.listOfTodos.length > 0) {
@@ -78,6 +80,7 @@ export class AppTodoListComponent implements OnInit {
         "completed": false
       },);
 
+      alert('Todo successfully added!');
       this.todoTitleValue = '';
       console.log(this.listOfTodos);
     }
@@ -96,8 +99,8 @@ export class AppTodoListComponent implements OnInit {
   paginatedData() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.listperPage = this.listOfTodos.slice(startIndex, endIndex);
-    console.log(this.listperPage);
+    this.listOfTodoPerPage = this.listOfTodos.slice(startIndex, endIndex);
+    console.log(this.listOfTodoPerPage);
 
   }
 
