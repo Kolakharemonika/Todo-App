@@ -5,13 +5,18 @@
       <button class="btn-add" (click)="openModal()">Add Todo</button>
     </div>
   </div>
-  <div class="card" *ngIf="listOfTodos.length>0 && !loader">
-    <div class="list-group" *ngFor="let todo of listOfTodos">
+  <div class="card" *ngIf="listperPage.length>0 && !loader">
+    <div class="list-group" *ngFor="let todo of listperPage">
       <app-todo [todoInput]="todo" (deleteTodoItem)="onDeleteTodoItem($event)"
         (completedTodo)="onCompletedTodo($event)"></app-todo>
     </div>
   </div>
   <div class="loader" *ngIf="loader"></div>
+  <div class="pagination">
+    <button class="button btn-prev" (click)="previousPage()" [disabled]="currentPage == 1">Previous</button>
+    <button class="button btn-next" (click)="nextPage()"
+      [disabled]="currentPage * itemsPerPage >= listOfTodos.length">Next</button>
+  </div>
 </div>
 
 

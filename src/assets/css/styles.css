@@ -93,7 +93,9 @@ svg {
   border: none;
 }
 
-.btn-add {
+.btn-add,
+.btn-prev,
+.btn-next {
   padding: 12px;
   color: #196e48;
   background: #def1e5;
@@ -182,4 +184,21 @@ input:focus-visible {
 .close-button svg,
 .btn-delete svg {
   fill: #196e48;
+}
+
+/* pagination */
+.pagination {
+  float: right;
+}
+
+.btn-prev,
+.btn-next {
+  border: 1px solid #196e48;
+  border-radius: 0;
+  margin: 10px;
+}
+
+button:disabled {
+  cursor: none;
+  opacity: 0.6;
 }

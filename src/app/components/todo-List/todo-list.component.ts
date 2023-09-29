@@ -8,15 +8,19 @@ import { UserService } from 'src/shared/services/user-service';
 })
 
 export class AppTodoListComponent implements OnInit {
-  @ViewChild('myModal', { static: false })
-  myModal!: ElementRef;
-  elm!: HTMLElement;
   showModal: boolean = false;
-  listOfTodos: TodoLists[] = [];
   completed: boolean = false;
   loader: boolean = false;
+
+  listOfTodos: TodoLists[] = [];
+  listperPage: TodoLists[] = [];
   todoId: number = 1;
   todoTitleValue: string = '';
+
+  // pagination
+  itemsPerPage = 10; // Number of items to display per page
+  currentPage = 1; // Current page number
+  data: any[] = []; // Your data source
 
   constructor(private userService: UserService) { }
 
@@ -26,9 +30,11 @@ export class AppTodoListComponent implements OnInit {
 
   fetchTodoListData() {
     this.loader = true;
+
     this.userService.fetchTodoList().then((resp: any) => {
       this.listOfTodos = resp;
       console.log(this.listOfTodos);
+      this.paginatedData();
       this.loader = false;
     }, (err) => {
       if (err.message) {
@@ -36,6 +42,7 @@ export class AppTodoListComponent implements OnInit {
       }
       this.loader = false;
     })
+
   }
 
   onDeleteTodoItem(id: any) {
@@ -76,7 +83,7 @@ export class AppTodoListComponent implements OnInit {
     }
   }
 
-
+  //open add todo modal
   openModal() {
     this.showModal = true;
   }
@@ -85,4 +92,22 @@ export class AppTodoListComponent implements OnInit {
     this.showModal = false;
   }
 
+  //pagination
+  paginatedData() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.listperPage = this.listOfTodos.slice(startIndex, endIndex);
+    console.log(this.listperPage);
+
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.paginatedData();
+  }
+
+  previousPage() {
+    this.currentPage--;
+    this.paginatedData();
+  }
 }
