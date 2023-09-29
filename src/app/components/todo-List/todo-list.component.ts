@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { TodoLists } from 'src/shared/models/tasklist';
-import { UserService } from 'src/shared/services/user-service';
+import { Component, OnInit } from '@angular/core';
+import { TodoLists } from '../../../shared/models/tasklist';
+import { UserService } from '../../../shared/services/user-service';
 
 @Component({
   selector: 'app-todo-list',
