@@ -50,6 +50,10 @@ export class AppTodoListComponent implements OnInit {
   onDeleteTodoItem(id: any) {
     this.listOfTodos = this.listOfTodos.filter(todo => todo.id != id);
     this.paginatedData();
+
+    setTimeout(() => {
+      alert('Todo deleted successfully!');
+    }, 0);
   }
 
   onCompletedTodo(selectedTodo: any) {
@@ -80,9 +84,12 @@ export class AppTodoListComponent implements OnInit {
         "completed": false
       },);
 
-      alert('Todo successfully added!');
       this.todoTitleValue = '';
       console.log(this.listOfTodos);
+
+      setTimeout(() => {
+        alert('Todo successfully added!');
+      }, 0);
     }
   }
 
