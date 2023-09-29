@@ -2,10 +2,7 @@
   <div class="header">
     <h1>Todo List</h1>
     <div class="header-content">
-      <form>
-        <input type="text" placeholder="Add title" name="title" [(ngModel)]="todoTitleValue">
-        <button class="btn-add" (click)="addTodoItem($event)">Add </button>
-      </form>
+      <button class="btn-add" (click)="openModal()">Add Todo</button>
     </div>
   </div>
   <div class="card" *ngIf="listOfTodos.length>0 && !loader">
@@ -15,4 +12,27 @@
     </div>
   </div>
   <div class="loader" *ngIf="loader"></div>
+</div>
+
+
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Add Todo</h2>
+
+      <button class="close-button btn" (click)="closeModal()">
+        <svg>
+          <use href="../../../assets/icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body d-flex">
+      <form>
+        <input type="text" placeholder="Add title" name="title" [(ngModel)]="todoTitleValue"
+          (keyup.enter)="addTodoItem($event)">
+      </form>
+      <button class="btn-add" (click)="addTodoItem($event)">Add </button>
+
+    </div>
+  </div>
 </div>

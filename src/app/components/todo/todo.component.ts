@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoLists } from 'src/shared/models/tasklist';
-import { UserService } from 'src/shared/services/user-service';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
 })
 export class AppTodoComponent implements OnInit {
+
   @Input() todoInput: TodoLists | any;
   @Output() deleteTodoItem: EventEmitter<any> = new EventEmitter();
   @Output() completedTodo: EventEmitter<any> = new EventEmitter();
 
   completed: any;
+  showModal: boolean = false;
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.completed = this.todoInput.completed;
@@ -25,5 +26,13 @@ export class AppTodoComponent implements OnInit {
   }
   onDeleteTodoItem(id: number) {
     this.deleteTodoItem.emit(id)
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

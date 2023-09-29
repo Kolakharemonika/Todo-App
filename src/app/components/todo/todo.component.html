@@ -5,11 +5,27 @@
         (change)="onChange(todoInput.id)">
       <label [for]="todoInput.id" class="check-label">{{todoInput.title}}</label>
     </div>
-    <button class="btn" (click)="onDeleteTodoItem(todoInput.id)">
+    <button class="button btn btn-delete" (click)="openModal()">
       <svg>
         <use href="../../../assets/icons.svg#icon-delete"></use>
       </svg>
     </button>
 
+  </div>
+</div>
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-todo-delete">
+    <div class="modal-header">
+      <h3>Do you want to delete?</h3>
+      <button class="close-button btn" (click)="closeModal()">
+        <svg>
+          <use href="../../../assets/icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body d-flex">
+      <button class="button btn-add" (click)="onDeleteTodoItem(todoInput.id)">Yes </button>
+      <button class="button btn-add" (click)="closeModal()">No</button>
+    </div>
   </div>
 </div>

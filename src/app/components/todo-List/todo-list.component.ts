@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TodoLists } from 'src/shared/models/tasklist';
 import { UserService } from 'src/shared/services/user-service';
 
@@ -8,28 +8,31 @@ import { UserService } from 'src/shared/services/user-service';
 })
 
 export class AppTodoListComponent implements OnInit {
-
+  @ViewChild('myModal', { static: false })
+  myModal!: ElementRef;
+  elm!: HTMLElement;
+  showModal: boolean = false;
   listOfTodos: TodoLists[] = [];
   completed: boolean = false;
   loader: boolean = false;
   todoId: number = 1;
   todoTitleValue: string = '';
+
   constructor(private userService: UserService) { }
+
   ngOnInit(): void {
     this.fetchTodoListData();
   }
 
-
   fetchTodoListData() {
     this.loader = true;
     this.userService.fetchTodoList().then((resp: any) => {
-      // console.log(resp);
       this.listOfTodos = resp;
       console.log(this.listOfTodos);
       this.loader = false;
     }, (err) => {
       if (err.message) {
-        console.log('something went wrong');
+        console.log('OOPs! Something went wrong ', err.message);
       }
       this.loader = false;
     })
@@ -57,7 +60,7 @@ export class AppTodoListComponent implements OnInit {
           }
         });
       } else {
-        this.todoId = 1;
+        this.todoId = 0;
       }
 
       this.todoId++;
@@ -71,6 +74,15 @@ export class AppTodoListComponent implements OnInit {
       this.todoTitleValue = '';
       console.log(this.listOfTodos);
     }
+  }
+
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
 }
